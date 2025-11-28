@@ -120,11 +120,6 @@ headline.addEventListener('mouseenter', () => {
   }, 60);
 });
 
-headline.addEventListener('mouseleave', () => {
-  clearInterval(glitchInterval);
-  headline.textContent = 'NEW MEDIA ART';
-});
-
 // Random scan line speed variation
 const scanLines = document.querySelectorAll('.scan-lines');
 scanLines.forEach(line => {
@@ -163,3 +158,4 @@ tags.forEach(tag => {
   });
 
 });
+
