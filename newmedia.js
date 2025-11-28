@@ -159,3 +159,134 @@ tags.forEach(tag => {
 
 });
 
+/* GOOGLE MAPS INTEGRATION */
+
+// Map configuration
+const MAP_CONFIG = {
+  center: { lat: 53.3498, lng: -6.2603 }, // Dublin, Ireland coordinates
+  zoom: 12,
+  styles: [
+    // Cyberpunk dark theme for the map
+    { elementType: "geometry", stylers: [{ color: "#1a1a1a" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#0d0d0d" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#11ff99" }] },
+    {
+      featureType: "administrative.locality",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#00d4ff" }]
+    },
+    {
+      featureType: "poi",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#ff2e7a" }]
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry",
+      stylers: [{ color: "#0f2621" }]
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [{ color: "#2a2a2a" }]
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#1a1a1a" }]
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{ color: "#3a3a3a" }]
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ color: "#0f2621" }]
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#00d4ff" }]
+    }
+  ]
+};
+
+// Initialize Google Map
+function initMap() {
+  const mapElement = document.getElementById('google-map');
+  
+  if (!mapElement) {
+    console.log('Map element not found - not on contact page');
+    return;
+  }
+
+  try {
+    // Create the map
+    const map = new google.maps.Map(mapElement, {
+      center: MAP_CONFIG.center,
+      zoom: MAP_CONFIG.zoom,
+      styles: MAP_CONFIG.styles,
+      disableDefaultUI: false,
+      zoomControl: true,
+      mapTypeControl: false,
+      streetViewControl: false,
+      fullscreenControl: true
+    });
+
+    // Add a custom marker
+    const marker = new google.maps.Marker({
+      position: MAP_CONFIG.center,
+      map: map,
+      title: "Dhuta404 - Dublin Base",
+      animation: google.maps.Animation.DROP
+    });
+
+    // Add info window
+    const infoWindow = new google.maps.InfoWindow({
+      content: `
+        <div style="color: #111; font-family: 'Courier New', monospace; padding: 0.5rem;">
+          <h3 style="color: #ff2e7a; font-weight: 900; margin-bottom: 0.5rem;">⚡ DHUTA404</h3>
+          <p style="margin: 0.25rem 0;"><strong>Location:</strong> Dublin, Ireland</p>
+          <p style="margin: 0.25rem 0;"><strong>Email:</strong> dhuta404@hotmail.com</p>
+          <p style="margin: 0.25rem 0;"><strong>Status:</strong> <span style="color: #11ff99;">Available</span></p>
+        </div>
+      `
+    });
+
+    // Open info window on marker click
+    marker.addListener('click', () => {
+      infoWindow.open(map, marker);
+    });
+
+    // Animate marker on hover (simulate with click)
+    marker.addListener('mouseover', () => {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(() => marker.setAnimation(null), 750);
+    });
+
+    console.log('Google Maps initialized successfully');
+  } catch (error) {
+    console.error('Error initializing Google Maps:', error);
+    mapElement.innerHTML = `
+      <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #1a1a1a; color: var(--neon-pink);">
+        <p style="font-weight: 900; font-size: 1.2rem;">⚠ MAP SIGNAL LOST</p>
+      </div>
+    `;
+  }
+}
+
+// Make initMap globally available for Google Maps API callback
+window.initMap = initMap;
+
+// Initialize map when DOM is ready (only if map element exists)
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('google-map')) {
+    // Check if Google Maps API is already loaded
+    if (typeof google !== 'undefined' && google.maps) {
+      initMap();
+    }
+  }
+});
+
