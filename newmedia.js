@@ -159,5 +159,34 @@ tags.forEach(tag => {
 
 });
 
+function initMap() {
+  const location = { lat: 53.3498, lng: -6.2603 }; // Example: Dublin
+
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 12,
+    center: location,
+    styles: [
+      { elementType: "geometry", stylers: [{ color: "#1a1a1a" }] },
+      { elementType: "labels.text.fill", stylers: [{ color: "#11ff99" }] },
+      { elementType: "labels.text.stroke", stylers: [{ color: "#000000" }] },
+      { featureType: "water", stylers: [{ color: "#00d4ff" }] }
+    ]
+  });
+
+  new google.maps.Marker({
+    position: location,
+    map: map,
+    title: "Dhuta404 HQ",
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 8,
+      fillColor: "#ff2e7a",
+      fillOpacity: 1,
+      strokeColor: "#fff",
+      strokeWeight: 2
+    }
+  });
+}
+
 
 
