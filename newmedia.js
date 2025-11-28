@@ -1,13 +1,9 @@
-/* =========================================
-   Utility Helper
-   ========================================= */
+/*  Utility Helper */
 function $(id) {
   return document.getElementById(id);
 }
 
-/* =========================================
-   Contact Form Class
-   ========================================= */
+/* Contact Form Class */
 class ContactForm {
   constructor(formId) {
     this.form = $(formId);
@@ -75,18 +71,14 @@ class ContactForm {
   }
 }
 
-/* =========================================
-   Custom Cursor
-   ========================================= */
+/* Custom Cursor */
 const cursor = document.querySelector(".cursor");
 document.addEventListener("mousemove", (e) => {
   cursor.style.left = e.clientX + "px";
   cursor.style.top = e.clientY + "px";
 });
 
-/* =========================================
-   Navigation Knobs
-   ========================================= */
+/* Navigation Knobs */
 document.querySelectorAll(".synth-pad").forEach((pad) => {
   pad.addEventListener("click", () => {
     const target = pad.getAttribute("data-target");
@@ -96,9 +88,7 @@ document.querySelectorAll(".synth-pad").forEach((pad) => {
   });
 });
 
-/* =========================================
-   Init
-   ========================================= */
+/*  Init */
 document.addEventListener("DOMContentLoaded", () => {
   new ContactForm("contact-form");
 });
@@ -171,4 +161,5 @@ tags.forEach(tag => {
       flash.remove();
     }, 200);
   });
+
 });
